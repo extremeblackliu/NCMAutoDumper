@@ -1,1 +1,5 @@
-NeteastAutoDumper
+### 网易云自动Dumper
+
+在下载ncm之后自动转储临时目录的mp3并移动到音乐下载目录。
+
+编译后重命名为version.dll并放在网易云安装目录下。
