@@ -30,15 +30,8 @@ struct finfo
 {
     void* ptr;
     size_t size;
-    finfo(void* ptr1, size_t sz) : ptr(ptr1), size(sz)
-    {
-
-    }
-    finfo()
-    {
-        ptr = nullptr;
-        size = 0;
-    }
+    finfo(void* ptr1, size_t sz) : ptr(ptr1), size(sz) {}
+    finfo() { ptr = nullptr; size = 0; }
 };
 
 std::unordered_map<std::wstring, finfo> FileInfo;
@@ -56,9 +49,9 @@ HANDLE WINAPI hk_CreateFileW(
     // CreateFileA/W都会被调用，但是似乎主要使用CreateFileW，所以我们hook这个函数
 
     // mp3写入
-    static void* retaddr = Utils::PatternScan(GetModuleHandleA("cloudmusic.dll"), "8B C8 EB 38 E8 ? ? ? ? 83 78 10 00 74 2A 8D 4D 08 E8 ? ? ? ? 83 78 14 10 72 02 8B 00 6A 00 6A 00");
+    static void* retaddr = Utils::PatternScan(GetModuleHandleA("cloudmusic.dll"), "48 8B 5C 24 50 48 83 C4 40 5F C3 E8 ? ? ? ? 48 83 78 10 00 74 42");
     // ncm写入
-    static void* retaddr1 = Utils::PatternScan(GetModuleHandleA("cloudmusic.dll"), "89 45 AC 83 F8 FF 75 11 FF 15 ? ? ? ? 85 C0 74 07 32 DB E9 ? ? ? ? E8 ? ? ? ? 8B F8 85 FF");
+    static void* retaddr1 = Utils::PatternScan(GetModuleHandleA("cloudmusic.dll"), "48 8B 8D 20 01 00 00 48 89 41 08 48 8B 85 20 01 00 00 48 83 78 08 FF 75 08");
     
     if (((uintptr_t)_ReturnAddress() == (uintptr_t)retaddr1)) // 这个返回地址只能是ncm写入的地址
     {
@@ -78,7 +71,7 @@ HANDLE WINAPI hk_CreateFileW(
     if ((uintptr_t)_ReturnAddress() == (uintptr_t)retaddr)
     {
         std::wstring m_sFileName = std::wstring(lpFileName);
-        // 转换小写，网易云你打不败我的
+
         std::transform(m_sFileName.begin(), m_sFileName.end(), m_sFileName.begin(),
             [](unsigned char c) { return std::tolower(c); });
 
@@ -86,7 +79,7 @@ HANDLE WINAPI hk_CreateFileW(
         if (m_sFileName.find(L"netease\\cloudmusic\\temp") != std::wstring::npos && m_sFileName.find(L".mp3") != std::wstring::npos)
         {
             std::wstring wFileName = FindFileName(lpFileName);
-
+            
             FILE* file = _wfopen(lpFileName, L"rb");
             fseek(file, 0, SEEK_END);
             FileInfo[wFileName].size = ftell(file);
