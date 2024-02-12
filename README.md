@@ -6,7 +6,11 @@
 - 至少 C++ 17
 - Windows
 
-# 使用
+# 使用步骤
+0. 从 Release 中下载`version.dll`
+1. 将`version.dll`移动至网易云音乐的安装目录
+
+# 从源码开始使用
 0. 克隆本库并编译
 1. 将编译后的二进制文件重命名为`version.dll`
 2. 将`version.dll`移动至网易云音乐的安装目录
