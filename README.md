@@ -24,7 +24,8 @@
 
 ### 编译要求
 - 至少 C++ 17
-- Windows
+- MSVC v143 (Visual Studio 2022)
+- Windows SDK
 
 # 说明
 这个可能能用很久，真的很久...非常耐操，不需要更新。
