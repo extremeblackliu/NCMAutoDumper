@@ -49,7 +49,7 @@ HANDLE WINAPI hk_CreateFileW(
     // CreateFileA/W都会被调用，但是似乎主要使用CreateFileW，所以我们hook这个函数
 
     // mp3写入
-    static void* retaddr = Utils::PatternScan(GetModuleHandleA("cloudmusic.dll"), "48 8B 5C 24 50 48 83 C4 40 5F C3 E8 ? ? ? ? 48 83 78 10 00 74 42");
+    static void* retaddr = Utils::PatternScan(GetModuleHandleA("cloudmusic.dll"), "48 8B 5C 24 50 48 83 C4 40 5F C3 E8 ? ? ? ? 48 83");
     // ncm写入
     static void* retaddr1 = Utils::PatternScan(GetModuleHandleA("cloudmusic.dll"), "48 8B 8D 20 01 00 00 48 89 41 08 48 8B 85 20 01 00 00 48 83 78 08 FF 75 08");
     
