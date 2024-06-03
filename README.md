@@ -1,3 +1,5 @@
+[![Github All Releases](https://img.shields.io/github/downloads/extremeblackliu/NCMAutoDumper/total.svg)]() 
+
 # NCMAutoDumper
 
 在下载ncm之后自动转储临时目录的mp3并移动到音乐下载目录。
